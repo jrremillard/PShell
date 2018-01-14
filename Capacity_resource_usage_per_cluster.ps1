@@ -17,6 +17,7 @@ foreach ($clstr in $clstrs)
         {
         $HyperthreadActive= "Disabled"
         }
+        Else {$HyperthreadActive= "Enabled"}
     }
 Write-host "Cluster Name: " $clstr -foreground red
 write-host ""
