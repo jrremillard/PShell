@@ -12,9 +12,11 @@ foreach ($clstr in $clstrs)
     $HyperThreadCheck = get-cluster $clstr | Get-VMHost
     foreach ($Hyperthread In $HyperThreadCheck)
     {
-        $HyperThreadActive = Get-vmhost $Hyperthread | Select-Object hyperthreadingactive 
+        $HyperThreadActive = (Get-vmhost $Hyperthread).hyperthreadingactive 
         if ($HyperThreadActive -eq $false)
-        {$HyperthreadActive= "Disabled"}
+        {
+        $HyperthreadActive= "Disabled"
+        }
     }
 Write-host "Cluster Name: " $clstr -foreground red
 write-host ""
@@ -33,7 +35,7 @@ $VhstCPU = ((Get-cluster $Clstr | get-vmhost | Select-Object -ExpandProperty ext
 $VhstMem = ((Get-cluster $Clstr | get-vmhost).MemoryTotalGB | measure-object -sum).Sum
 $Vhst = (Get-cluster $clstr | get-vmhost).count
 "Total Hosts: " + $Vhst
-"Hyperthreading Status" + $HyperthreadActive
+"Hyperthreading Status: " + $HyperthreadActive
 "Total VM CPUs To Hosts Physical CPUs: " + $VmCPU / $VhstCPUThread
 "Total VM CPUs To Hosts LogicalCPUs: " + $VmCPU / $VhstCPU
 "Total VM Memory To Total Hosts Memory: " + $VmMem / $VhstMem
