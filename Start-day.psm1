@@ -1,3 +1,4 @@
+#This is a star of day Module!
 Function Get-LastEvents {
 # This will get events for the last 24 hours from VCenter. Log into Vcenter prior to running.
 Clear-Host
@@ -29,6 +30,7 @@ if ($OldRpt -eq $true)
     if ($OldRpt2 -eq $true)
     {
     Remove-Item -path "c:\temp\FinalErrorReport.txt"
+    Remove-Item -path "c:\temp\ErrorReport.txt"
     }
 }
 Else{}
@@ -51,6 +53,7 @@ $ErrorManage = get-content c:\temp\Host_Errors.txt
 foreach ($Item in $ErrorManage)
 {
     $Fix = $Item.indexof(")")
-    $Item.substring($Fix+1) | out-file c:\temp\FinalErrorReport.txt -append
+    $Item.substring($Fix+1) | out-file c:\temp\ErrorReport.txt -append
 }
+get-content c:\temp\Errorreport.txt | select-string -Pattern 'H:0x0' -notmatch | out-file c:\temp\FinalErrorReport.txt
 }
